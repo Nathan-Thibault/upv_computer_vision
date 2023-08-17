@@ -1,0 +1,16 @@
+.bold {
+    -fx-font-weight: bold;
+}
+
+#title {
+    -fx-font-size: 32px;
+    -fx-fill: darkblue;
+    -fx-alignment: center;
+}
+
+#image-pane {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-background-color: grey;
+}

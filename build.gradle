@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
+}
+
+group 'es.upv.computervision'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '18'
+targetCompatibility = '18'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'es.upv.computervision'
+    mainClass = 'es.upv.computervision.AircraftDetection'
+}
+
+javafx {
+    version = '18.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation(name: 'opencv-470')
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.3.+')
+    implementation('org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.+')
+    implementation('org.controlsfx:controlsfx:11.1.+')
+    implementation('com.dlsc.formsfx:formsfx-core:11.6.+') {
+        exclude(group: 'org.openjfx')
+    }
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'AircraftDetection'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
+}

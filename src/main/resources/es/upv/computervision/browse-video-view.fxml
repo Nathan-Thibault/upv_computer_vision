@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.layout.Pane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="es.upv.computervision.VideoController">
+    <padding>
+        <Insets top="10" right="10" left="10" bottom="10"/>
+    </padding>
+    <top>
+        <VBox spacing="5.0" alignment="CENTER">
+            <padding>
+                <Insets top="5" right="5" left="5" bottom="10"/>
+            </padding>
+            <Text id="title" text="Aircraft detection in video"/>
+        </VBox>
+    </top>
+    <center>
+        <Pane fx:id="imagePane" id="image-pane">
+            <ImageView fx:id="imageView" preserveRatio="true"/>
+        </Pane>
+    </center>
+    <bottom>
+        <HBox spacing="8.0">
+            <padding>
+                <Insets top="10" right="5" bottom="5" left="5"/>
+            </padding>
+            <Label text="Path:" styleClass="bold"/>
+            <TextField fx:id="pathText" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="browseButton" text="Browse" onAction="#onBrowseButtonClick"/>
+        </HBox>
+    </bottom>
+    <left>
+        <VBox spacing="5.0">
+            <padding>
+                <Insets right="5" left="10"/>
+            </padding>
+            <Text text="How to use:" styleClass="bold"/>
+            <Text text="1. fill path, manually or with the browse button"/>
+            <Text text="2. choose a processing method to detect aircraft"/>
+            <Text text="3. press play button"/>
+            <ComboBox fx:id="processCombo" promptText="Select a process">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="No processing (original video, no detection)" />
+                        <String fx:value="Lucas Optical Flow" />
+                        <String fx:value="Test (try to track landing lights)" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Button fx:id="playButton" onAction="#onPlayButtonClick">
+                <graphic>
+                    <FontIcon iconLiteral="fa-play" iconSize="16" iconColor="darkgreen"/>
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</BorderPane>
